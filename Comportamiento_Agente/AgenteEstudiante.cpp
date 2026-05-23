@@ -3,7 +3,7 @@
 #include <limits>
 #include <vector>
 #include <algorithm>
-#include <cmath>
+#include <cmath> 
 #include <functional>
 
 AgenteEstudiante::AgenteEstudiante(int id, int profundidadMax, double tiempoMax, int numHeuristica, ModoJuego modo) 
