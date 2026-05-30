@@ -389,8 +389,6 @@ double AgenteEstudiante::heuristicaPrueba(const Tablero& tablero) {
             }
         }
     }
-
-   
     return score_positivo - score_negativo;
 }
 
@@ -412,7 +410,7 @@ double AgenteEstudiante::heuristica1(const Tablero& tablero) {
                 
                 Tablero::TipoCelda tipo = tablero.getTipoCelda(f, c);
                 if (tipo == Tablero::TipoCelda::VERDE) {
-                    valor *= 2.5; 
+                    valor *= 2.5;
                 } else if (tipo == Tablero::TipoCelda::AMARILLO) {
                     valor *= 1.5;
                 }
@@ -441,11 +439,79 @@ double AgenteEstudiante::heuristica1(const Tablero& tablero) {
 }
 
 double AgenteEstudiante::heuristica2(const Tablero& tablero) {
-    //A implementar por el estudiante
-return 0;
+    int oponente = (id == 1) ? 2 : 1;
+    double score_positivo = 0;
+    double score_negativo = 0;
+
+    int filas = tablero.getFilas();
+    int columnas = tablero.getColumnas();
+    int centroF = filas / 2;
+    int centroC = columnas / 2;
+
+    for (int f = 0; f < filas; f++) {
+        for (int c = 0; c < columnas; c++) {
+            if (tablero.getCelda(f, c) != 0) {
+                double valor = filas - abs(f - centroF) + columnas - abs(c - centroC);
+                if (tablero.getCelda(f, c) == id) {
+                    score_positivo += valor;
+                } else {
+                    score_negativo += valor;
+                }
+            }
+        }
+    }
+
+    double mi_4 = tablero.contarCombinaciones(4, id);
+    double mi_3 = tablero.contarCombinaciones(3, id);
+    double mi_2 = tablero.contarCombinaciones(2, id);
+
+    double op_4 = tablero.contarCombinaciones(4, oponente);
+    double op_3 = tablero.contarCombinaciones(3, oponente);
+    double op_2 = tablero.contarCombinaciones(2, oponente);
+
+    double score_lineas = (mi_4 * 50000.0 + mi_3 * 1000.0 + mi_2 * 50.0)
+                        - (op_4 * 50000.0 + op_3 * 1000.0 + op_2 * 50.0);
+
+    return (score_positivo - score_negativo) + score_lineas;
 }
 
 double AgenteEstudiante::heuristica3(const Tablero& tablero) {
-    //A implementar por el estudiante
-return 0;
+    int oponente = (id == 1) ? 2 : 1;
+    double score_positivo = 0;
+    double score_negativo = 0;
+
+    int filas = tablero.getFilas();
+    int columnas = tablero.getColumnas();
+    int centroF = filas / 2;
+    int centroC = columnas / 2;
+    for (int f = 0; f < filas; f++) {
+        for (int c = 0; c < columnas; c++) {
+            if (tablero.getCelda(f, c) != 0) {
+                double valor = filas - abs(f - centroF) + columnas - abs(c - centroC);
+                
+                Tablero::TipoCelda tipo = tablero.getTipoCelda(f, c);
+                if (tipo == Tablero::TipoCelda::VERDE) valor += 10.0;
+                if (tipo == Tablero::TipoCelda::ROJO) valor -= 10.0;
+
+                if (tablero.getCelda(f, c) == id) {
+                    score_positivo += valor;
+                } else {
+                    score_negativo += valor;
+                }
+            }
+        }
+    }
+
+    double mi_4 = tablero.contarCombinaciones(4, id);
+    double mi_3 = tablero.contarCombinaciones(3, id);
+    double mi_2 = tablero.contarCombinaciones(2, id);
+
+    double op_4 = tablero.contarCombinaciones(4, oponente);
+    double op_3 = tablero.contarCombinaciones(3, oponente);
+    double op_2 = tablero.contarCombinaciones(2, oponente);
+
+    double score_lineas = ((mi_4 + mi_3 + mi_2) * 100.0) 
+                        - ((op_4 + op_3 + op_2) * 100.0);
+
+    return (score_positivo - score_negativo) + score_lineas;
 }
