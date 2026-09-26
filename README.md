@@ -127,7 +127,7 @@ make -j$(nproc)
 
 ---
 
-## 👤 Créditos y Agradecimientos
+## Créditos 
 
 * **Desarrollo del Agente:** Almudena O. ([@almuocon](https://github.com/almuocon)) — Estudiante de Ingeniería Informática en la **Universidad de Granada (ETSIIT - UGR)**.
 * **Entorno y Motor del Juego:** Departamento de Ciencias de la Computación e Inteligencia Artificial (**DECSAI / CCIA**), Universidad de Granada.
