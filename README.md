@@ -57,7 +57,7 @@ El desarrollo del evaluador estático siguió un proceso iterativo de ensayo y e
 
 ---
 
-## 🏆 Resultados y Rendimiento Competitivo
+## Resultados y Rendimiento Competitivo
 
 Evaluación frente a los cuatro agentes Ninja oficiales del entorno (tanto abriendo como Jugador 1 como respondiendo como Jugador 2):
 
